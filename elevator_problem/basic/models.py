@@ -1,32 +1,11 @@
 from django.db import models
+from .helpers import *
 
 # Create your models here.
 
 class Elevator(models.Model):
-    START = 'start'
-    STOP = 'stop'
-    UP = 'up'
-    DOWN = 'down'
-    CLOSE = 'close'
-    OPEN = 'open'
-
-    RUNNING_STATUS_CHOICES = [
-        (START, 'Start'),
-        (STOP, 'Stop'),
-    ]
-
-    DOOR_STATUS_CHOICES = [
-        (OPEN, 'Open'),
-        (CLOSE, 'Close'),
-    ]
-
-    DIRECTION_CHOICES = [
-        (UP, 'Up'),
-        (DOWN, 'Down'),
-    ]
-
     current_floor = models.IntegerField(default = 0)
-    # next_floor = models.IntegerField()
+    next_floor = models.IntegerField()
     running_status = models.CharField(max_length = 5, choices = RUNNING_STATUS_CHOICES, default = STOP)
     operational = models.BooleanField(default = True)
     door_status = models.CharField(max_length = 5, choices = DOOR_STATUS_CHOICES, default = CLOSE)
