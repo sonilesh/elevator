@@ -81,4 +81,13 @@ def mark_lift_not_operational(request, pk):
         return Response("Invalid data found", status.HTTP_400_BAD_REQUEST)
     return Response(serializer.data)
 
-
+@api_view(['POST'])
+def make_request(request, pk):
+    elevator = get_object_or_404(models.Elevator, id = pk)
+    data = request.data
+    user_request = models.UserRequest.objects.create(
+        elevator = elevator,
+        requested_floor = data["floor"],
+    )
+    serializer = serializers.UserRequestSerializer(user_request, many=False)
+    return Response(serializer.data)
